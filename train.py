@@ -5,13 +5,16 @@ import time
 import util
 from engine import Trainer
 import os
-from durbango import pickle_save
+import pickle
 from fastprogress import progress_bar
 
 from model import GWNet
 from util import calc_tstep_metrics
 from exp_results import summary
 
+def pickle_save(obj, path):
+    with open(path, "wb") as f:
+        pickle.dump(obj, f)
 
 def main(args, **model_kwargs):
     device = torch.device(args.device)

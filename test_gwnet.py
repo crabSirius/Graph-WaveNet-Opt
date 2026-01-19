@@ -1,7 +1,7 @@
 from train import main
 import test
 import unittest
-from durbango import pickle_load
+import pickle
 import pandas as pd
 import os
 import torch
@@ -18,6 +18,11 @@ ARG_UPDATES = {'epochs': 1, 'n_iters': 1, 'batch_size': 2, 'n_obs': 2,
                'checkpoint': '', 'fill_zeroes': False}
 
 MODEL_KWARGS = {'end_channels': 4, 'skip_channels': 2}
+
+def pickle_save(obj, path):
+    with open(path, "wb") as f:
+        pickle.dump(obj, f)
+
 def modify_args(args, updates):
     for k,v in updates.items():
         setattr(args, k, v)
