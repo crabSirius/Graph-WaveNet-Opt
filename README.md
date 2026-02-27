@@ -14,6 +14,19 @@ with modifications presented in [Incrementally Improving Graph WaveNet Performan
 - see `requirements.txt`
 
 
+### 具体环境
+- Python 3.12.9
+- torch                         2.6.0   (mac上)
+- torchvision                   0.21.0
+
+## 代码修改
+为了适配torch版本，将model.py的Conv1d 修改为Conv2d[https://github.com/nnzhan/Graph-WaveNet/issues/34#issuecomment-2008730447]
+
+wkq-wukaiqi,mentioned this on Mar 28, 2024:
+
+Conv1d: Expected 2D (unbatched) or 3D (batched) input to conv1d 
+lwm412/STFGNN-Pytorch#2
+
 ## Data Preparation
 
 1) Download METR-LA and PEMS-BAY data from [Google Drive](https://drive.google.com/open?id=10FOTa6HXPqX8Pf5WRoRwcFnW9BrNZEIX) or [Baidu Yun](https://pan.baidu.com/s/14Yy9isAIZYdU__OYEQGa_g) links provided by [DCRNN](https://github.com/liyaguang/DCRNN).

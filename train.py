@@ -5,12 +5,18 @@ import time
 import util
 from engine import Trainer
 import os
-from durbango import pickle_save
 from fastprogress import progress_bar
 
 from model import GWNet
 from util import calc_tstep_metrics
 from exp_results import summary
+
+import pickle
+
+def pickle_save(obj, path):
+    """将对象序列化并保存到 path（替代 durbango.pickle_save）。"""
+    with open(path, 'wb') as f:
+        pickle.dump(obj, f)
 
 
 def main(args, **model_kwargs):
@@ -99,7 +105,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     t1 = time.time()
     if not os.path.exists(args.save):
-        os.mkdir(args.save)
+        os.makedirs(args.save)
     pickle_save(args, f'{args.save}/args.pkl')
     main(args)
     t2 = time.time()
