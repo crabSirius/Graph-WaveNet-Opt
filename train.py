@@ -99,7 +99,7 @@ if __name__ == "__main__":
     parser.add_argument('--learning_rate', type=float, default=0.001, help='learning rate')
     parser.add_argument('--lr_decay_rate', type=float, default=0.97, help='learning rate')
     parser.add_argument('--save', type=str, default='experiment', help='save path')
-    parser.add_argument('--n_iters', default=None, help='quit after this many iterations')
+    parser.add_argument('--n_iters', type=int, default=None, help='quit after this many iterations')
     parser.add_argument('--es_patience', type=int, default=20, help='quit if no improvement after this many iterations')
 
     args = parser.parse_args()
