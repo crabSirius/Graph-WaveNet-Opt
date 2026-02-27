@@ -81,5 +81,10 @@ These flags are (somewhat) documented in util.py.
 
 Run unitests with `pytest`
 
+## test 命令
+```
+python test.py --cat_feat_gc --do_graph_conv --addaptadj  --checkpoint best_model.pth
+```
+
 ### Possible Improvements
 * move redundant `.transpose(1,3)` to dataloader or `load_dataset`
