@@ -10,17 +10,21 @@ import seaborn as sns
 
 
 def main(args, save_pred_path='preds.csv', save_metrics_path='last_test_metrics.csv', loader='test', **model_kwargs):
-    device = torch.device(args.device)
-    adjinit, supports = util.make_graph_inputs(args, device)
-    model = GWNet.from_args(args, device, supports, adjinit, **model_kwargs)
-    model.load_state_dict(torch.load(args.checkpoint))
-    model.to(device)
-    model.eval()
-    print('model loaded successfully')
+    device = torch.device(args.device if torch.cuda.is_available() else 'cpu')
+
     data = util.load_dataset(args.data, args.batch_size, args.batch_size, args.batch_size, n_obs=args.n_obs, fill_zeroes=args.fill_zeroes)
     scaler = data['scaler']
     realy = torch.Tensor(data[f'y_{loader}']).to(device)
     realy = realy.transpose(1,3)[:,0,:,:]
+    print(realy.shape)
+
+    adjinit, supports = util.make_graph_inputs(args, device)
+    model = GWNet.from_args(args, device, supports, adjinit, **model_kwargs)
+    model.load_state_dict(torch.load(args.checkpoint, map_location=device))
+    model.to(device)
+    model.eval()
+    print('model loaded successfully')
+
     met_df, yhat = util.calc_tstep_metrics(model, device, data[f'{loader}_loader'], scaler, realy, args.seq_length)
     df2 = util.make_pred_df(realy, yhat, scaler, args.seq_length)
     met_df.to_csv(save_metrics_path)
