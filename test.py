@@ -29,7 +29,8 @@ def main(args, save_pred_path='preds.csv', save_metrics_path='last_test_metrics.
     df2 = util.make_pred_df(realy, yhat, scaler, args.seq_length)
     met_df.to_csv(save_metrics_path)
     df2.to_csv(save_pred_path, index=False)
-    if args.plotheatmap: plot_learned_adj_matrix(model)
+    if args.plotheatmap: 
+        plot_learned_adj_matrix(model)
     return met_df, df2
 
 def plot_learned_adj_matrix(model):
